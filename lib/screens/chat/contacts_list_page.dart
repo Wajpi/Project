@@ -145,6 +145,12 @@ class _ContactsListPageState extends State<ContactsListPage> {
 
 */
 
+
+
+
+
+/*
+
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatefulWidget {
@@ -194,6 +200,8 @@ class _ContactsListState extends State<ContactsList> {
           ),
         ],
       ),
+
+      
     );
   }
 
@@ -321,4 +329,128 @@ class ChatDetailPage extends StatelessWidget {
       ),
     );
   }
+}
+
+*/
+
+import 'package:flutter/material.dart';
+import 'chat_page.dart'; // Import the ChatPage
+
+class ContactsList extends StatefulWidget {
+  @override
+  _ContactsListState createState() => _ContactsListState();
+}
+
+class _ContactsListState extends State<ContactsList> {
+  final List<Chat> chats = [
+    Chat(name: 'Oliver Wilson', message: 'Hey! Just requested the ride. I’m at the...', time: '8:42 pm'),
+    Chat(name: 'Noah Thompson', message: 'Hey! Just requested the ride. I’m at the...', time: '8:42 pm'),
+    Chat(name: 'Emily Hughes', message: 'Hey! Just requested the ride. I’m at the...', time: '8:42 pm'),
+    Chat(name: 'Emil Hughes', message: 'Hey! Just requested the ride. I’m at the...', time: '8:42 pm'),
+    Chat(name: 'Late Workers', message: 'Got it! I’m about 7 mins away. I’ll...', time: '22/01/2023'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      
+      body: Stack(
+        children: [
+          // Background Image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          // Main Content
+          Column(
+            children: [
+              AppBar(
+                    title: Text(
+                      'Chat',
+                      style: TextStyle(
+                        fontSize: 30.0, // Scale to 40
+                        fontWeight: FontWeight.bold, // Optional for emphasis
+                      ),
+                    ),                backgroundColor: Colors.transparent, // Make AppBar transparent
+                elevation: 0, // Remove shadow
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      // Implement functionality for adding a new chat
+                    },
+                  ),
+                ],
+              ),
+              // Search Bar
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search...',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.8),
+                  ),
+                ),
+              ),
+              // Chat List
+              Expanded(
+                child: ListView.builder(
+                  itemCount: chats.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                      child: Card(
+                        elevation: 2.0,
+                        color: Colors.white.withOpacity(0.8),
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Text(chats[index].name[0]),
+                          ),
+                          title: Text(chats[index].name),
+                          subtitle: Text(chats[index].message),
+                          trailing: Text(chats[index].time),
+                          onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChatPage(
+                                    name: chats[index].name,
+                                    initialMessage: chats[index].message,
+                                    initialTime: chats[index].time,
+                                  ),
+                                ),
+                              );
+                            }
+
+
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+      
+    );
+  }
+}
+
+class Chat {
+  final String name;
+  final String message;
+  final String time;
+
+  Chat({required this.name, required this.message, required this.time});
 }

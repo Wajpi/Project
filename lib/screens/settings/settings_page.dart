@@ -28,10 +28,13 @@ class SettingsPage extends StatelessWidget {
 
   Widget _buildProfileHeader(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
-      ),
+      padding: const EdgeInsets.all(20),
+       decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
       child: Row(
         children: [
           CircleAvatar(
